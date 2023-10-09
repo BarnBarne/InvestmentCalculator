@@ -1,15 +1,22 @@
 import React from 'react'
 
 const InvestmentResultCalculations = props => {
+	const formatter = new Intl.NumberFormat('en-Us', {
+		style: 'currency',
+		currency: 'USD',
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	})
+
 	return (
 		<tbody>
 			{props.calculatedData.map(item => (
-				<tr>
+				<tr key={item.year}>
 					<td>{item.year}</td>
-					<td>{item.totalSavings}</td>
-					<td>{item.yearlyInterest}</td>
-					<td>{item.totalInterest}</td>
-					<td>{item.investedCapital}</td>
+					<td>{formatter.format(item.totalSavings)}</td>
+					<td>{formatter.format(item.yearlyInterest)}</td>
+					<td>{formatter.format(item.totalInterest)}</td>
+					<td>{formatter.format(item.investedCapital)}</td>
 				</tr>
 			))}
 		</tbody>

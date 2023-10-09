@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import styles from './InvestmentForm.module.css'
-// import InvestmentFormInput from './InvestmentFormInput'
 
 const InvestmentForm = props => {
 	const [enteredCurrentSavings, setEnteredCurrentSavings] = useState('')
@@ -40,7 +39,6 @@ const InvestmentForm = props => {
 		}
 
 		props.onCalculate(calculationsData)
-		// send investmentData foreward
 
 		resetHandler()
 	}
@@ -48,8 +46,6 @@ const InvestmentForm = props => {
 	return (
 		<form onSubmit={submitHandler} className={styles.form}>
 			<div className={styles['input-group']}>
-				{/* <InvestmentFormInput  id="current-savings">Current Savings ($)</InvestmentFormInput>
-			<InvestmentFormInput  id="yearly-contribution">Yearly Savings ($)</InvestmentFormInput> */}
 				<p>
 					<label htmlFor='current-savings'>Current Savings ($)</label>
 					<input
@@ -70,8 +66,6 @@ const InvestmentForm = props => {
 				</p>
 			</div>
 			<div className={styles['input-group']}>
-				{/* <InvestmentFormInput id="expected-return">Expected Interest (%, per year)</InvestmentFormInput>
-			<InvestmentFormInput id="duration">Investment Duration (years)</InvestmentFormInput> */}
 				<p>
 					<label htmlFor='expected-return'>Expected Interest (%, per year)</label>
 					<input

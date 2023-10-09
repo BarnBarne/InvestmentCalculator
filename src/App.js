@@ -5,43 +5,40 @@ import InvestmentForm from './components/InvestmentForm/InvestmentForm'
 import InvestmentResult from './components/InvestmentResult/InvestmentResult'
 
 function App() {
-	const [calculatedData, setCalculatedData] = useState([])
+	const [userInput, setUserInput] = useState(null)
 
 	const calculationHandler = userInput => {
-		// Should be triggered when form is submitted
-		// You might not directly want to bind it to the submit event on the form though...
+		setUserInput(userInput)
+	}
 
-		const yearlyData = [] // per-year results
+	const yearlyData = []
 
-		let currentSavings = +userInput.savings // feel free to change the shape of this input object!
-		const yearlyContribution = +userInput.contribution // as mentioned: feel free to change the shape...
+	if (userInput) {
+		let currentSavings = +userInput.savings
+		const yearlyContribution = +userInput.contribution
 		const expectedReturn = +userInput.expectedReturn / 100
 		const duration = +userInput.duration
 		let calculateTotalInterest = 0
-		// The below code calculates yearly results (total savings, interest etc)
 		for (let i = 0; i < duration; i++) {
 			const yearlyInterest = currentSavings * expectedReturn
 			calculateTotalInterest += yearlyInterest
 			currentSavings += yearlyInterest + yearlyContribution
 			yearlyData.push({
-				// feel free to change the shape of the data pushed to the array!
 				year: i + 1,
-				totalSavings: currentSavings.toFixed(2),
-				yearlyInterest: yearlyInterest.toFixed(2),
-				totalInterest: calculateTotalInterest.toFixed(2),
-				investedCapital: (currentSavings - calculateTotalInterest).toFixed(2),
+				totalSavings: currentSavings,
+				yearlyInterest: yearlyInterest,
+				totalInterest: calculateTotalInterest,
+				investedCapital: currentSavings - calculateTotalInterest,
 			})
 		}
-		setCalculatedData(yearlyData)
-
-		// do something with yearlyData ...
 	}
 
 	return (
 		<div>
 			<Header />
 			<InvestmentForm onCalculate={calculationHandler} />
-			<InvestmentResult calculatedData={calculatedData} />
+			{!userInput && <p style={{ textAlign: 'center' }}>No investment calculated yet</p>}
+			{userInput && <InvestmentResult calculatedData={yearlyData} />}
 		</div>
 	)
 }
